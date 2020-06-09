@@ -1,1 +1,80 @@
+# SERIES TEMPORAIS 
+# quaisquer dados observados ou medidos em vários pontos no tempo compõem uma série temporal.
+# muitas séries temporais possuem frequência fixa, o que equivale dizer que os pontos de dados ocorrem em intervalos regulares
+# de acordo com alguma regra. 
+# As séries temporais também podem ser irregulares, sem uma unidade de fixa ou um offset (deslocamento) entre as unidades.
+
+#### TIMESTAMPS --> instantes específicos no tempo
+#### PERÌODOS FIXOS 
+#### INTERVALOS
+# Cada timestamp é uma medida de tempo relativa a um determinado instante de início; Os tipos mais simples e mais amplamente utilizados
+# de séries temporais são aquelas indexadas por timestamps
+
+# O pandas oferece suporte também para índices baseados em timedeltas (diferenças de tempo) que podem ser uma forma conveniente
+# de representar a duração do experimento ou o tempo decorrido. 
+
+import pandas as pd
+import numpy as np
+import statsmodels.api as sm
+from datetime import datetime
+from datetime import timedelta
+
+now = datetime.now(); now
+now.month
+now.year
+now.date
+now.day
+delta = datetime(2011,1,7) - datetime(2008,6,24,8,15); delta
+delta.days
+delta.seconds
+start = datetime(2011,1,7)
+start + timedelta(12)
+start - 2 * timedelta(12)
+
+# CONVERSAO ENTRE STRING E DATETIME
+
+# Podemos formatar os objetos de datetime e objetos de Timestamp do pandas como strings usando str ou método strftime passando
+# uma especificação de formato
+
+stamp = datetime(2011,11,3)
+str(stamp)
+stamp.strftime('%Y-%m-%d')
+
+# Podemos usar esses mesmos códigos de formato para converter strings em datas usando datetime.strptime
+
+value = '2011-01-03'
+datetime.strptime(value, '%Y-%m-%d')
+datestrs = ['7/6/2011', '8/6/2011']
+[datetime.strptime(x, '%m/%d/%Y') for x in datestrs]
+
+# datetime.strptime é uma boa maneira de fazer parse de uma data com um formato conhecido. Entretanto pode ser um pouco irritante
+# ter que escrever sempre uma específicação de formato, particularmente para os formatos de data comuns. Nesse caso,
+# podemos usar o método parser.parse do pacote de terceiros dateutil (é instalado automaticamente quando instala o pandas):
+
+from dateutil.parser import parse
+parse('2011-01-03')
+
+# dateutil é capaz de fazer parse da maior parte das representações de data legíveis aos seres humanos.
+parse('Jan 31, 1997 10:45 PM')
+parse('6/12/2011', dayfirst=True)
+
+# O pandas em geral é orientado a trabalhar com arrays de datas, sejam elas usadas como índice de um eixo ou uma coluna em um DataFrame.
+# o método to_datetime faz parse de vários tipos diferentes de representações de data. O parse de formatos-padrões de data, como ISO8601,
+# pode ser feito rapidamente
+
+datestrs = ['2011-07-06 12:00:00', '2011-08-06 00:00:00']
+pd.to_datetime(datestrs)
+idx = pd.to_datetime(datestrs + [None])
+idx
+idx[2]
+pd.isnull(idx)
+
+
+
+
+
+
+
+
+
 
