@@ -70,7 +70,21 @@ idx[2]
 pd.isnull(idx)
 
 
+# o tipo básico de objeto de séries temporais no pandas é uma Series indexada por timestamps que, com frequência, é representada
+# externamente ao pandas na forma de strings Python ou objetos datetime:
 
+dates = [datetime(2011,1,2), datetime(2011,1,5), datetime(2011,1,7),
+         datetime(2011,1,8), datetime(2011,1,10), datetime(2011,1,12)]
+ts = pd.Series(np.random.randn(6), index = dates)
+
+# Internamente, esses objetos datetime foram colocados em um DateTimeIndex>
+ts.index
+# Pandas armazena timestamps usando o tipo de dado datetime64 do NumPy com resolução de nanossegundos.
+ts.index.dtype
+stamp = ts.index[0]
+stamp
+ts['1/10/2011']
+ts['20110110']
 
 
 
